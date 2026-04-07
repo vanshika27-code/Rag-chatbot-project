@@ -1,93 +1,100 @@
-# RAG Chatbot with Flowise
 
-A smart **Retrieval-Augmented Generation (RAG) Chatbot** built using **Flowise** that allows users to upload documents and ask context-aware questions. The chatbot retrieves relevant document chunks using **Google Gemini Embeddings** and generates accurate answers with **Mistral AI**.
+RAG Chatbot – AI Ethics Knowledge Assistant
 
----
+A Retrieval-Augmented Generation (RAG) chatbot built using Flowise, Google Gemini Embeddings, and Mistral AI to answer questions from an AI Ethics research document.
 
- Overview
+📌 Project Description
 
-This project demonstrates how to build a **document-based conversational AI system** using the RAG architecture in Flowise. It processes uploaded documents, converts them into embeddings, stores them in a vector store, and uses an LLM to answer user queries based on retrieved context.
+This project implements a Conversational Retrieval QA system that allows users to interact with a research paper titled:
 
----
+“AI Ethics: Integrating Transparency, Fairness, and Privacy in AI Development”
 
- Features
+Instead of relying purely on a language model, the system retrieves relevant sections from the document and generates grounded responses, reducing hallucinations and improving factual accuracy.
 
-- Upload and analyze documents
-- Context-aware question answering
-- Semantic document retrieval using embeddings
-- Maintains chat history using memory
-- Fast retrieval with in-memory vector storage
-- Built visually using Flowise nodes
+🧠 System Architecture
 
----
+The RAG pipeline is built visually in Flowise and consists of the following components:
 
- Technologies Used
+PDF → Text Splitter → Embeddings → Vector Store → Retriever
+                                         ↓
+                                   Mistral LLM
+                                         ↓
+                            Conversational QA Chain
+                                         ↓
+                                    Final Answer
+⚙️ Components Used
+1️⃣ Recursive Character Text Splitter
+Chunk Size: 1000
+Chunk Overlap: 200
+Splits document into retrievable segments
+2️⃣ File Loader
+Uploads and parses PDF
+Connects with text splitter
+3️⃣ Google Gemini Embeddings
+Model: gemini-embedding-001
+Converts text chunks into vector embeddings
+Optimized for retrieval tasks
+4️⃣ In-Memory Vector Store
+Stores embeddings temporarily
+Top-K retrieval: 4
+Performs semantic similarity search
+5️⃣ Mistral AI (LLM)
+Model: mistral-tiny
+Temperature: 0.9
+Generates natural language responses
+6️⃣ Buffer Memory
+Maintains conversation context
+Enables follow-up question handling
+7️⃣ Conversational Retrieval QA Chain
+Integrates retriever + LLM + memory
+Produces final grounded answer
+🚀 How It Works
+Upload the PDF document
+Split document into chunks
+Generate embeddings for each chunk
+Store embeddings in vector database
+User asks a question
+Retriever fetches top relevant chunks
+LLM generates response using retrieved context
+Memory stores conversation history
+🛠️ Tech Stack
+Flowise
+Google Gemini Embeddings
+Mistral AI
+Vector Search (In-Memory)
+Conversational Retrieval QA
+📂 Example Query
 
-- **Flowise**
-- **Google Gemini Embeddings**
-- **Mistral AI**
-- **Recursive Character Text Splitter**
-- **File Loader**
-- **In-Memory Vector Store**
-- **Buffer Memory**
-- **Conversational Retrieval QA Chain**
+User:
 
----
+What is the document about?
 
- Workflow
+Response:
+A structured summary covering:
 
-The chatbot flow includes the following components:
+Ethical concerns in AI
+Transparency principles
+Fairness and bias mitigation
+Privacy safeguards
+Responsible AI deployment
+🔍 Why RAG?
+Reduces hallucinations
+Ensures context-grounded responses
+Improves reliability
+Supports domain-specific Q&A
+Scalable for enterprise knowledge systems
+📈 Future Improvements
+Replace in-memory store with persistent DB (Chroma / Pinecone)
+Add source citations in responses
+Deploy via REST API
+Add authentication & access control
+Multi-document support
+📸 Screenshots
 
-1. **Recursive Character Text Splitter**
-   - Splits the document into smaller chunks
-   - Chunk Size: `1000`
-   - Chunk Overlap: `200`
+(Add your two screenshots here)
 
-2. **File Loader**
-   - Loads the source document into the workflow
+/screenshots/rag_pipeline.png
+/screenshots/chat_output.png
+👩‍💻 Author
 
-3. **Google Gemini Embeddings**
-   - Model: `gemini-embedding-001`
-   - Task Type: `RETRIEVAL_DOCUMENT`
-
-4. **In-Memory Vector Store**
-   - Stores document embeddings for retrieval
-   - Top K: `4`
-
-5. **Mistral AI**
-   - Model: `mistral-tiny`
-   - Temperature: `0.9`
-
-6. **Buffer Memory**
-   - Stores previous conversation context
-
-7. **Conversational Retrieval QA Chain**
-   - Combines retriever, memory, and language model
-   - Produces context-based answers
-   - <img width="1847" height="873" alt="rag" src="https://github.com/user-attachments/assets/c3c4bb8c-b1c2-45ee-a51c-73b37c90222f" />
- src="https://github.com/user-attachments/assets/873f8ce7-f3bd-4937-893c-accc45f799e6" />
-
-
----
-
- How It Works
-
-1. A document is uploaded using the **File Loader**
-2. The text is split into chunks using the **Recursive Character Text Splitter**
-3. Each chunk is converted into embeddings using **Google Gemini Embeddings**
-4. Embeddings are stored in the **In-Memory Vector Store**
-5. When the user asks a question:
-   - Relevant chunks are retrieved from the vector store
-   - Mistral AI generates a response using retrieved context
-   - Buffer Memory maintains the conversation flow
-
----
-
- Project Structure
-
-```bash
-RAG-Chatbot-Flowise/
-│── README.md
-│── RAG CHATBOT Chatflow.json
-│── screenshot.png
-│── sample-document.pdf
+Developed as part of an academic project on AI Ethics and RAG Systems.
